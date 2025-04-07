@@ -24,7 +24,7 @@ app.use(express.json());
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
-  console.log('Auth Header:', authHeader); // 👈 Add this
+  console.log('Auth Header:', authHeader); 
 
   const token = authHeader?.split(' ')[1];
   if (!token) {
@@ -60,7 +60,6 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-  // POST /api/metrics - Save metric to PostgreSQL
 app.post('/api/metrics', authenticateToken, async (req, res) => {
   const { systolic, diastolic } = req.body;
 
@@ -80,8 +79,8 @@ app.post('/api/metrics', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Database error' });
   }
 });
+);
 
-// GET /api/metrics - Retrieve metrics for user
 app.get('/api/metrics', authenticateToken, async (req, res) => {
   try {
     const result = await pool.query(
